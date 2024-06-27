@@ -22,6 +22,8 @@ parameters:
 
 steps:
   - pwsh: |
+        Write-Host "commit: $($Env:SYSTEM_PULLREQUEST_SOURCECOMMITID)"
+        Write-Host "repo: $($Env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI)"
         Get-ChildItem env:* | Sort-Object Name  
     displayName: Debug
   
