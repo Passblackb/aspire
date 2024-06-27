@@ -21,6 +21,15 @@ parameters:
     default: false
 
 steps:
+  - pwsh: |
+        Get-ChildItem env:* | Sort-Object Name  
+    displayName: Debug
+  
+  - pwsh: |
+        $commonBase = $(git log -1 --decorate --format=%h --oneline $(git rev-parse "$(git rev-list --exclude-first-parent-only ^origin/main HEAD | select -last 1)^"))
+        Write-Host "https://github.com/dotnet/aspire/compare/$commonBase...5186be46041c850fd6ab05dc5f13f4d129242cd1"
+        exit -1
+
   - script: ${{ parameters.buildScript }}
             -restore -build
             -pack
