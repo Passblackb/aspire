@@ -28,8 +28,8 @@ steps:
     displayName: Debug
   
   - pwsh: |
-        $commonBase = $(git log -1 --decorate --format=%h --oneline $(git rev-parse "$(git rev-list --exclude-first-parent-only ^origin/main HEAD | select -last 1)^"))
-        Write-Host "https://github.com/dotnet/aspire/compare/$commonBase...5186be46041c850fd6ab05dc5f13f4d129242cd1"
+        $commonBase = $(git log -1 --decorate --oneline $(git rev-parse --format=%H "$(git rev-list --exclude-first-parent-only ^origin/main HEAD | select -last 1)^"))
+        Write-Host "$($Env:SYSTEM_PULLREQUEST_SOURCECOMMITID)/compare/$commonBase...$($Env:SYSTEM_PULLREQUEST_SOURCEREPOSITORYURI)"
         exit -1
 
   - script: ${{ parameters.buildScript }}
